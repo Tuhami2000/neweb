@@ -7,7 +7,7 @@ import { MapPin, Phone, Mail, ChevronDown } from "lucide-react"
 import { motion } from "framer-motion"
 
 export function Page() {
-  const [activeSection, setActiveSection] = useState(0)
+  const [activeSection, setActiveSection] = useState<string | null>(null)
   const sectionRefs = [useRef(null), useRef(null)]
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export function Page() {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [/* other dependencies */, sectionRefs])
 
   const scrollToSection = (index) => {
     sectionRefs[index].current?.scrollIntoView({ behavior: 'smooth' })
