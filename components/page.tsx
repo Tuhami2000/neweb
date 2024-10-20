@@ -1,17 +1,18 @@
 'use client'
 
-import { useEffect, useRef, useState, useMemo } from 'react'
+import { useEffect, useRef, useMemo } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { MapPin, Phone, Mail, ChevronDown } from "lucide-react"
 import { motion } from "framer-motion"
 
 export function Page() {
-  // Remove the unused activeSection state
-  // const [activeSection, setActiveSection] = useState<string | null>(null)
+  // Create refs outside of useMemo
+  const section1Ref = useRef(null);
+  const section2Ref = useRef(null);
   
-  // Use useMemo to create sectionRefs
-  const sectionRefs = useMemo(() => [useRef(null), useRef(null)], [])
+  // Use useMemo to create sectionRefs array
+  const sectionRefs = useMemo(() => [section1Ref, section2Ref], []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,8 +25,7 @@ export function Page() {
         }
       })
 
-      // Instead of setting state, you could do something with newActiveSection here
-      // For example, update a CSS class on the active section
+      // Update CSS class for active section
       sectionRefs.forEach((ref, index) => {
         if (ref.current) {
           if (index === newActiveSection) {
@@ -39,7 +39,7 @@ export function Page() {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [sectionRefs]) // Include sectionRefs in the dependency array
+  }, [sectionRefs])
 
   const scrollToSection = (index: number) => {
     sectionRefs[index].current?.scrollIntoView({ behavior: 'smooth' })
