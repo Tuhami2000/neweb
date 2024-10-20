@@ -7,12 +7,12 @@ import { MapPin, Phone, Mail, ChevronDown } from "lucide-react"
 import { motion } from "framer-motion"
 
 export function Page() {
-  // Create refs outside of useMemo
-  const section1Ref = useRef(null);
-  const section2Ref = useRef(null);
+  // Create refs with proper typing
+  const section1Ref = useRef<HTMLElement | null>(null);
+  const section2Ref = useRef<HTMLElement | null>(null);
   
-  // Use useMemo to create sectionRefs array
-  const sectionRefs = useMemo(() => [section1Ref, section2Ref], []);
+  // Use useMemo to create sectionRefs array with proper typing
+  const sectionRefs = useMemo(() => [section1Ref, section2Ref] as const, []);
 
   useEffect(() => {
     const handleScroll = () => {
